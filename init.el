@@ -92,7 +92,9 @@ values."
      gtags
      prodigy
      evernote
-     (org :variables org-enable-github-support t)
+     (org :variables
+          org-enable-github-support t
+          org-enable-reveal-js t)
      search-engine
      evil-little-word
      yaml
@@ -125,7 +127,6 @@ values."
           elm-reactor-port "3000"          ; default 8000
           elm-reactor-address "0.0.0.0") ; default 127.0.0.1
      elixir
-     org-reveal
      )
 
    ;; List of additional packages that will be installed wihout being
@@ -356,30 +357,5 @@ layers configuration."
           (let ((web-mode-enable-part-face nil))
             ad-do-it)
         ad-do-it))))
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ahs-case-fold-search nil)
- '(ahs-default-range (quote ahs-range-whole-buffer))
- '(ahs-idle-interval 0.25)
- '(ahs-idle-timer 0 t)
- '(ahs-inhibit-face-list nil)
- '(doc-view-continuous t)
- '(magit-pull-arguments (quote ("--rebase")))
- '(ring-bell-function (quote ignore) t)
- '(wakatime-api-key "8384d653-14c2-43a6-91c3-930f92effdc9")
- '(wakatime-cli-path "/home/rob/.pyenv/versions/3.4.3/bin/wakatime")
- '(wakatime-python-bin "/home/rob/.pyenv/versions/3.4.3/bin/python"))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Source Code Pro" :foundry "adobe" :slant normal :weight normal :height 98 :width normal))))
- '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+(setq custom-file "~/.spacemacs.d/custom.el")
+(load custom-file)
