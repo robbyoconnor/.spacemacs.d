@@ -82,11 +82,9 @@ values."
              shell-default-term-shell "/bin/zsh")
      typescript
      (eyebrowse :variables eyebrowse-display-help t)
-     (perspectives :variables perspective-display-help t)
      erc
      chrome
      d
-     extra-langs
      smex
      emoji
      gtags
@@ -111,7 +109,6 @@ values."
      dash
      spell-checking
      jabber
-     deft
      cscope
      vinegar
      unimpaired
@@ -122,11 +119,11 @@ values."
      ;; php
      geolocation
      idris
-     sml
      (elm :variables
           elm-reactor-port "3000"          ; default 8000
           elm-reactor-address "0.0.0.0") ; default 127.0.0.1
      elixir
+     (typography :variables typography-enable-typographic-editing t)
      )
 
    ;; List of additional packages that will be installed wihout being
