@@ -1,0 +1,3 @@
+* My spacemacs config
+
+This is just my spacemacs config.
