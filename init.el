@@ -92,7 +92,9 @@ values."
      evernote
      (org :variables
           org-enable-github-support t
-          org-enable-reveal-js t)
+          ;; org-enable-reveal-js t
+          ;; org-enable-ioslide t
+          )
      search-engine
      evil-little-word
      yaml
@@ -124,6 +126,7 @@ values."
           elm-reactor-address "0.0.0.0") ; default 127.0.0.1
      elixir
      (typography :variables typography-enable-typographic-editing t)
+     evil-cleverparens
      )
 
    ;; List of additional packages that will be installed wihout being
@@ -160,7 +163,7 @@ before layers configuration."
    ;; dotspacemacs-startup-banner 'official
    dotspacemacs-startup-banner 'doge
    ;; t if you always want to see the changelog at startup
-   dotspacemacs-always-show-changelog t
+   dotspacemacs-always-show-changelog nil
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
    dotspacemacs-startup-lists '(recents projects bookmarks)
@@ -217,7 +220,7 @@ before layers configuration."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   dotspacemacs-maximized-at-startup nil
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'.
@@ -353,6 +356,8 @@ layers configuration."
       (if (equal web-mode-content-type "jsx")
           (let ((web-mode-enable-part-face nil))
             ad-do-it)
-        ad-do-it))))
+        ad-do-it)))
+  (setq eclim-eclipse-dirs "~/eclipse"
+        eclim-executable "~/eclipse/eclim"))
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
