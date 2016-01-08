@@ -7,6 +7,11 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
+   ;; environment, otherwise it is strongly recommended to let it set to t.
+   ;; (default t)
+   dotspacemacs-elpa-https nil
+   ;; Maximum allowed time in seconds to contact an ELPA repository.
+   dotspacemacs-elpa-timeout 30
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
@@ -15,13 +20,15 @@ values."
    ;; of a list then all discovered layers will be installed.
   dotspacemacs-configuration-layers
   '(
+    speed-reading
     (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-complete-with-key-sequence nil
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-sort-by-usage t
-                      auto-completion-show-snippets-in-popup t)
+                      auto-completion-show-snippets-in-popup t
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/snippets")
      better-defaults
      emacs-lisp
      (git :variables
@@ -206,7 +213,7 @@ before layers configuration."
    dotspacemacs-enable-paste-micro-state t
    ;; Guide-key delay in seconds. The Guide-key is the popup buffer listing
    ;; the commands bound to the current keystrokes.
-   dotspacemacs-guide-key-delay 0.4
+   dotspacemacs-which-key-delay 0.4
    ;; If non nil a progress bar is displayed when spacemacs is loading. This
    ;; may increase the boot time on some systems and emacs builds, set it to
    ;; nil ;; to boost the loading time.
@@ -264,7 +271,9 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
+  (global-git-commit-mode t)
   (global-evil-mc-mode)
+  (rvm-use-default)
   (setq-default spacemacs-mode-line-minor-modesp nil
         spacemacs/mode-line-battery-percentage)
 
@@ -326,7 +335,7 @@ layers configuration."
       (with-syntax-table table
         ad-do-it)))
   (setq python-shell-interpreter "ipython")
-  (setq python-shell-interpreter-args "-i --gui=wx")
+  (setq python-shell-interpreter-args "-i ")
   (setq vc-follow-symlinks t)
   (setq tab-width 2)
   (setq magit-push-always-verify nil)
@@ -340,7 +349,7 @@ layers configuration."
           js-switch-indent-offset         2
           js2-indent-switch-body          2
           js2-strict-missing-semi-warning t)
-
+    (setq python-indent-offset 2)
     (add-hook 'web-mode-hook
               (lambda ()
                 (when (equal web-mode-content-type "jsx")
