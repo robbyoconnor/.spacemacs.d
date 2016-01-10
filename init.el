@@ -20,6 +20,8 @@ values."
    ;; of a list then all discovered layers will be installed.
   dotspacemacs-configuration-layers
   '(
+    ;; spacemacs-ivy
+    spacemacs-helm
     speed-reading
     (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
@@ -63,7 +65,7 @@ values."
                  haskell-enable-hindent-style "andrew-gibiansky")
      html
      java
-     javascript
+     (javascript :variables javascript-disable-tern-port-files t)
      (python :variables python-enable-yapf-format-on-save t)
      racket
      (ruby :variables
@@ -181,10 +183,7 @@ before layers configuration."
                          zenburn
                          solarized-dark
                          spacemacs-dark
-                         spacemacs-light
-                         solarized-light
-                         leuven
-                         zenburn)
+                         spacemacs-light)
    ;; If non nil the cursor color matches the state color.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. `powerline-scale' allows to quickly tweak the mode-line
@@ -238,6 +237,10 @@ before layers configuration."
    dotspacemacs-inactive-transparency 90
    ;; If non nil unicode symbols are displayed in the mode line.
    dotspacemacs-mode-line-unicode-symbols nil
+   ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
+   ;; several times cycle between the kill ring content. (default nil)
+   dotspacemacs-enable-paste-micro-state t 
+   ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
    ;; point when it reaches the top or bottom of the screen.
@@ -257,6 +260,11 @@ before layers configuration."
    ;; Not used for now.
    dotspacemacs-default-package-repository nil
    dotspacemacs-auto-save-file-location 'cache
+   ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
+   ;; derivatives. If set to `relative', also turns on relative line numbers.
+   ;; (default nil)
+   dotspacemacs-line-numbers t 
+   ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    )
   ;; User initialization goes here
   `(add-hook 'doc-view-mode-hook 'auto-revert-mode)
