@@ -54,6 +54,7 @@ values."
      floobits
      xkcd
      autohotkey
+     csv
      (c-c++ :variables
             c-c++-enable-clang-support t)
      (clojure :variables clojure-enable-fancify-symbols t)
