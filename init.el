@@ -11,7 +11,7 @@ values."
    ;; (default t)
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
-   dotspacemacs-elpa-timeout 30
+   dotspacemacs-elpa-timeout 60
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (ie. `~/.mycontribs/')
@@ -71,7 +71,7 @@ values."
      (ruby :variables
            ruby-version-manager `rvm)
      ruby-on-rails
-     rust
+     (rust :variables rust-enable-rustfmt-on-save t)
      scala
      shell-scripts
      restclient
@@ -122,7 +122,6 @@ values."
      jabber
      cscope
      vinegar
-     unimpaired
      rcirc
      games
      ;; stackexchange
@@ -239,7 +238,7 @@ before layers configuration."
    dotspacemacs-mode-line-unicode-symbols nil
    ;; If non nil the paste micro-state is enabled. When enabled pressing `p`
    ;; several times cycle between the kill ring content. (default nil)
-   dotspacemacs-enable-paste-micro-state t 
+   dotspacemacs-enable-paste-micro-state t
    ;; Which-key delay in seconds. The which-key buffer is the popup listing
    ;; If non nil smooth scrolling (native-scrolling) is enabled. Smooth
    ;; scrolling overrides the default behavior of Emacs which recenters the
@@ -263,7 +262,7 @@ before layers configuration."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers t 
+   dotspacemacs-line-numbers t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    )
   ;; User initialization goes here
@@ -279,7 +278,8 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
-  (global-git-commit-mode t)
+  (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+    (rvm-activate-corresponding-ruby))
   (global-evil-mc-mode)
   (rvm-use-default)
   (setq-default spacemacs-mode-line-minor-modesp nil
