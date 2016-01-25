@@ -23,6 +23,7 @@ values."
     ;; spacemacs-ivy
     spacemacs-helm
     speed-reading
+    swift
     (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -48,7 +49,7 @@ values."
      ansible
      puppet
      evil-commentary
-     ;; (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
+     (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
      fasd
      finance
      floobits
