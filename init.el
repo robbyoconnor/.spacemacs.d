@@ -24,6 +24,7 @@ values."
     spacemacs-helm
     speed-reading
     swift
+    plantuml
     (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -360,6 +361,14 @@ layers configuration."
           js2-indent-switch-body          2
           js2-strict-missing-semi-warning t)
     (setq python-indent-offset 2)
+
+    (with-eval-after-load 'org
+      (org-babel-do-load-languages
+       'org-babel-load-languages
+       '(( plantuml . t)))
+      (setq org-plantuml-jar-path
+            (expand-file-name "~/plantuml.jar")))
+
     (add-hook 'web-mode-hook
               (lambda ()
                 (when (equal web-mode-content-type "jsx")
