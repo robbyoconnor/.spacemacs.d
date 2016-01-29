@@ -286,10 +286,10 @@ layers configuration."
   (global-evil-mc-mode)
   (rvm-use-default)
   (setq-default spacemacs-mode-line-minor-modesp nil
-        spacemacs/mode-line-battery-percentage)
-
-  `(setq deft-directory "~/Dropbox/notes")
-  `(setq edit-server-url-major-mode-alist
+                fancy-battery-last-status t)
+  (fancy-battery-mode)
+  (setq deft-directory "~/Dropbox/notes")
+  (setq edit-server-url-major-mode-alist
          '(("github\\.com" . org-mode)))
   (setq powerline-default-separator 'arrow)
   ;; IBuffer
