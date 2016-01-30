@@ -20,8 +20,8 @@ values."
    ;; of a list then all discovered layers will be installed.
   dotspacemacs-configuration-layers
   '(
-    ;; spacemacs-ivy
-    spacemacs-helm
+    spacemacs-ivy
+    ;; spacemacs-helm
     speed-reading
     swift
     plantuml
