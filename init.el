@@ -210,7 +210,7 @@ before layers configuration."
    ;; Emacs commands (M-x).
    ;; By default the command key is `:' so ex-commands are executed like in Vim
    ;; with `:' and Emacs commands are executed with `<leader> :'.
-   dotspacemacs-command-key ":"
+   dotspacemacs-command-key "SPC"
    ;; If non nil the paste micro-state is enabled. While enabled pressing `p`
    ;; several times cycle between the kill ring content.
    dotspacemacs-enable-paste-micro-state t
