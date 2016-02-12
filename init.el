@@ -59,8 +59,8 @@ values."
      xkcd
      autohotkey
      csv
-     (c-c++ :variables
-            c-c++-enable-clang-support t)
+    (c-c++ :variables
+           c-c++-enable-clang-support t)
      (clojure :variables clojure-enable-fancify-symbols t)
      extra-langs
      go
@@ -90,7 +90,7 @@ values."
      semantic
      deft
      (shell :variables
-             shell-default-shell 'eshell
+             shell-default-shell 'ansi-term
              shell-default-position  'bottom
              shell-default-height 30
              shell-default-term-shell "/bin/zsh")
@@ -140,6 +140,7 @@ values."
      elixir
      (typography :variables typography-enable-typographic-editing t)
      evil-cleverparens
+     emberjs
      )
 
    ;; List of additional packages that will be installed wihout being
@@ -283,6 +284,9 @@ before layers configuration."
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
+  (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (setq create-lockfiles nil)
   (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
     (rvm-activate-corresponding-ruby))
   (global-evil-mc-mode)
