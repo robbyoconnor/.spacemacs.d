@@ -140,7 +140,8 @@ values."
      elixir
      (typography :variables typography-enable-typographic-editing t)
      evil-cleverparens
-     emberjs
+     ;; emberjs
+     pdf-tools
      )
 
    ;; List of additional packages that will be installed wihout being
