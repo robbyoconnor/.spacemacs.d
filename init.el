@@ -20,7 +20,7 @@ values."
    ;; of a list then all discovered layers will be installed.
   dotspacemacs-configuration-layers
   '(
-    ;; spacemacs-ivy
+    spacemacs-ivy
     spacemacs-helm
     asciidoc
     elfeed
