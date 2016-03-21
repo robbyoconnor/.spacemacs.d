@@ -21,7 +21,7 @@ values."
   dotspacemacs-configuration-layers
   '(
     spacemacs-ivy
-    spacemacs-helm
+    ;; spacemacs-helm
     asciidoc
     elfeed
     speed-reading
@@ -95,7 +95,6 @@ values."
              shell-default-height 30
              shell-default-term-shell "/bin/zsh")
      typescript
-     (eyebrowse :variables eyebrowse-display-help t)
      erc
      chrome
      d
