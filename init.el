@@ -10,6 +10,8 @@ values."
    ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; (default t)
    dotspacemacs-elpa-https nil
+   dotspacemacs-enable-lazy-installation t
+   dotspacemacs-large-file-size 350
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 20
    dotspacemacs-distribution 'spacemacs
@@ -20,8 +22,11 @@ values."
    ;; of a list then all discovered layers will be installed.
   dotspacemacs-configuration-layers
   '(
+    nginx
+    twitter
+    graphviz
     spacemacs-ivy
-    ;; spacemacs-helm
+    spacemacs-helm
     asciidoc
     elfeed
     speed-reading
@@ -148,7 +153,7 @@ values."
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
   dotspacemacs-additional-packages '(helm-flycheck docker
-  help-fns+ ob-ipython)
+  help-fns+ ob-ipython nvm )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
