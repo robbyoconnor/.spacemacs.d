@@ -10,7 +10,6 @@ values."
    ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; (default t)
    dotspacemacs-elpa-https nil
-   dotspacemacs-enable-lazy-installation t
    dotspacemacs-large-file-size 350
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 20
@@ -22,11 +21,14 @@ values."
    ;; of a list then all discovered layers will be installed.
   dotspacemacs-configuration-layers
   '(
+    php
+    bibtex
+    rebox
     nginx
     twitter
     graphviz
-    spacemacs-ivy
-    spacemacs-helm
+    ivy
+    helm
     asciidoc
     elfeed
     speed-reading
@@ -99,7 +101,7 @@ values."
              shell-default-position  'bottom
              shell-default-height 30
              shell-default-term-shell "/bin/zsh")
-     typescript
+;;      typescript
      erc
      chrome
      d
@@ -142,18 +144,18 @@ values."
           elm-reactor-port "3000"          ; default 8000
           elm-reactor-address "0.0.0.0") ; default 127.0.0.1
      elixir
-     (typography :variables typography-enable-typographic-editing t)
+     (typography :variables typography-enable-typographic-editing nil)
      evil-cleverparens
      ;; emberjs
      pdf-tools
+     imenu-list
      )
 
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-  dotspacemacs-additional-packages '(helm-flycheck docker
-  help-fns+ ob-ipython nvm )
+  dotspacemacs-additional-packages '(helm-flycheck docker docker-api docker-tramp marcopolo help-fns+ ob-ipython nvm groovy-mode)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -276,12 +278,7 @@ before layers configuration."
    )
   ;; User initialization goes here
   `(add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  `(add-to-list 'exec-path "~/.cabal/bin/")
-  (setq tramp-ssh-controlmaster-options
-        (concat
-         "-o ControlMaster=auto"
-         "-o ControlPath='tramp.%%C'"
-         "-o ControlPersist=no")))
+  `(add-to-list 'exec-path "~/.cabal/bin/"))
 
 (defun dotspacemacs/user-config ()
   "Configuration function.
@@ -294,6 +291,7 @@ layers configuration."
     (rvm-activate-corresponding-ruby))
   (global-evil-mc-mode)
   (rvm-use-default)
+  (spacemacs/toggle-typographic-substitutions-off )
   (setq-default spacemacs-mode-line-minor-modesp nil
                 fancy-battery-last-status t)
   (fancy-battery-mode)
@@ -395,6 +393,27 @@ layers configuration."
             ad-do-it)
         ad-do-it)))
   (setq eclim-eclipse-dirs "~/eclipse"
-        eclim-executable "~/eclipse/eclim"))
+        eclim-executable "~/eclipse/eclim")
+;; Open files in Docker containers like so: /docker:drunk_bardeen:/etc/passwd
+(push
+ (cons
+  "docker"
+  '((tramp-login-program "docker")
+    (tramp-login-args (("exec" "-it") ("%h") ("/bin/bash")))
+    (tramp-remote-shell "/bin/sh")
+    (tramp-remote-shell-args ("-i") ("-c"))))
+ tramp-methods)
+
+(defadvice tramp-completion-handle-file-name-all-completions
+  (around dotemacs-completion-docker activate)
+  "(tramp-completion-handle-file-name-all-completions \"\" \"/docker:\" returns
+    a list of active Docker container names, followed by colons."
+  (if (equal (ad-get-arg 1) "/docker:")
+      (let* ((dockernames-raw (shell-command-to-string "docker ps | perl -we 'use strict; $_ = <>; m/^(.*)NAMES/ or die; my $offset = length($1); while(<>) {substr($_, 0, $offset, q()); chomp; for(split m/\\W+/) {print qq($_:\n)} }'"))
+             (dockernames (cl-remove-if-not
+                           #'(lambda (dockerline) (string-match ":$" dockerline))
+                           (split-string dockernames-raw "\n"))))
+        (setq ad-return-value dockernames))
+    ad-do-it)))
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
