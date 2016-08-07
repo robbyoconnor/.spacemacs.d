@@ -414,7 +414,12 @@ layers configuration."
           (let ((web-mode-enable-part-face nil))
             ad-do-it)
         ad-do-it)))
-  (setq eclim-eclipse-dirs "~/eclipse"
-        eclim-executable "~/eclipse/eclim"))
+  (setq
+   ;; Use another eclimd executable
+   eclim-executable "~/eclipse/eclim"
+   eclimd-default-workspace "~/code/"
+   ;; Whether or not to block emacs until eclimd is ready
+   eclimd-wait-for-process nil
+   eclim-eclipse-dirs "~/eclipse"))
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
