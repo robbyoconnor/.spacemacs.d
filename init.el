@@ -8,6 +8,12 @@
 You should not put any user code in this function besides modifying the variable
 values."
   (setq-default
+
+   ;; If non-nil, a form that evaluates to a package directory. For example, to
+   ;; use different package directories for different Emacs versions, set this
+   ;; to `emacs-version'.
+   dotspacemacs-elpa-subdirectory 'emacs-version
+   ;; One of `vim', `emacs' or `hybrid'.
    ;; environment, otherwise it is strongly recommended to let it set to t.
    ;; (default t)
    dotspacemacs-elpa-https nil
@@ -50,7 +56,7 @@ values."
      github
      gnus
      version-control
-     markdown
+     (markdown :variables markdown-live-preview-engine 'vmd)
      syntax-checking
      (latex :variables latex-enable-auto-fill t)
      (colors :variables
@@ -67,6 +73,7 @@ values."
      xkcd
      autohotkey
      csv
+     nlinum
     (c-c++ :variables
            c-c++-enable-clang-support t)
      (clojure :variables clojure-enable-fancify-symbols t)
@@ -139,7 +146,8 @@ values."
      games
      ;; stackexchange
      react
-     ;; php
+     php
+     vimscript
      geolocation
      idris
      (elm :variables
@@ -152,6 +160,8 @@ values."
      pdf-tools
      imenu-list
      slack
+     systemd
+     command-log
      )
 
    ;; List of additional packages that will be installed wihout being
@@ -189,7 +199,7 @@ before layers configuration."
    dotspacemacs-always-show-changelog nil
    ;; List of items to show in the startup buffer. If nil it is disabled.
    ;; Possible values are: `recents' `bookmarks' `projects'."
-   dotspacemacs-startup-lists '(bookmarks
+   dotspacemacs-startup-lists '((bookmarks . 5)
                                 (recents . 5)
                                 (projects . 20)
                                 todos agenda)
@@ -414,6 +424,9 @@ layers configuration."
           (let ((web-mode-enable-part-face nil))
             ad-do-it)
         ad-do-it)))
+  (setq browse-url-browser-function 'browse-url-generic
+        engine/browser-function 'browse-url-generic
+        browse-url-generic-program "google-chrome-beta")
   (setq
    ;; Use another eclimd executable
    eclim-executable "~/eclipse/eclim"
