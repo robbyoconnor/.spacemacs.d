@@ -30,12 +30,11 @@ values."
   dotspacemacs-configuration-layers
   '(
     bibtex
-    rebox
+    ;; rebox
     nginx
     twitter
     graphviz
     ivy
-    helm
     asciidoc
     elfeed
     speed-reading
@@ -96,7 +95,8 @@ values."
      (rust :variables rust-enable-rustfmt-on-save t)
      scala
      shell-scripts
-     restclient
+     (restclient :variables
+                 restclient-use-org t)
      themes-megapack
      tmux
      vim-empty-lines
@@ -136,7 +136,7 @@ values."
      sml
      common-lisp
      ranger
-     wakatime
+     ;; wakatime
      dash
      spell-checking
      jabber
@@ -433,6 +433,8 @@ layers configuration."
    eclimd-default-workspace "~/code/"
    ;; Whether or not to block emacs until eclimd is ready
    eclimd-wait-for-process nil
-   eclim-eclipse-dirs "~/eclipse"))
+   eclim-eclipse-dirs "~/eclipse")
+  (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
+  (setq which-key-side-window-location 'bottom))
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
