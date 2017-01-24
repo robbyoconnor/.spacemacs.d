@@ -279,8 +279,10 @@ before layers configuration."
    ;; If non nil advises quit functions to keep server open when quitting.
    dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
-   ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
-   dotspacemacs-search-tools '("ag" "pt" "ack" "grep")
+   ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
+   ;; (default '("rg" "ag" "pt" "ack" "grep"))
+    dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
    ;; Not used for now.
@@ -434,7 +436,41 @@ layers configuration."
    ;; Whether or not to block emacs until eclimd is ready
    eclimd-wait-for-process nil
    eclim-eclipse-dirs "~/eclipse")
+
+  ;; (setq-default flycheck-disabled-checkers
+  ;;               (append flycheck-disabled-checkers
+  ;;                       '(javascript-jshint)))
+
+  ;; ;; use local eslint from node_modules before global
+  ;; ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  ;; (defun my/use-eslint-from-node-modules ()
+  ;;   (let* ((root (locate-dominating-file
+  ;;                 (or (buffer-file-name) default-directory)
+  ;;                 "node_modules"))
+  ;;          (eslint (and root
+  ;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
+  ;;                                         root))))
+  ;;     (when (and eslint (file-executable-p eslint))
+  ;;       (setq-local flycheck-javascript-eslint-executable eslint))))
+
+  ;; ;; for better jsx syntax-highlighting in web-mode
+  ;; ;; - courtesy of Patrick @halbtuerke
+  ;; (defadvice web-mode-highlight-part (around tweak-jsx activate)
+  ;;   (if (equal web-mode-content-type "jsx")
+  ;;       (let ((web-mode-enable-part-face nil))
+  ;;         ad-do-it)
+  ;;     ad-do-it))
+
+  ;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  (setq spacemacs--ansible-filename-re
+        ".*\\(certbot\.yml|common\.yml|lh\-tomcat\.yml|lh\-ehr\.yml|requirements\.yml|main\.yml\\|site\.yml\\|encrypted\.yml\\|roles/.+\.yml\\|group_vars/.+\\|host_vars/.+|/ansible/.+\\)")
   (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
-  (setq which-key-side-window-location 'bottom))
+ (setq which-key-side-window-location 'bottom))
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+)
