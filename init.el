@@ -437,35 +437,30 @@ layers configuration."
    eclimd-wait-for-process nil
    eclim-eclipse-dirs "~/eclipse")
 
-  ;; (setq-default flycheck-disabled-checkers
-  ;;               (append flycheck-disabled-checkers
-  ;;                       '(javascript-jshint)))
+  (setq-default flycheck-disabled-checkers
+                (append flycheck-disabled-checkers
+                        '(javascript-jshint)))
 
-  ;; ;; use local eslint from node_modules before global
-  ;; ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
-  ;; (defun my/use-eslint-from-node-modules ()
-  ;;   (let* ((root (locate-dominating-file
-  ;;                 (or (buffer-file-name) default-directory)
-  ;;                 "node_modules"))
-  ;;          (eslint (and root
-  ;;                       (expand-file-name "node_modules/eslint/bin/eslint.js"
-  ;;                                         root))))
-  ;;     (when (and eslint (file-executable-p eslint))
-  ;;       (setq-local flycheck-javascript-eslint-executable eslint))))
+  ;; use local eslint from node_modules before global
+  ;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  (defun my/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint (and root
+                        (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                          root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
 
-  ;; ;; for better jsx syntax-highlighting in web-mode
-  ;; ;; - courtesy of Patrick @halbtuerke
-  ;; (defadvice web-mode-highlight-part (around tweak-jsx activate)
-  ;;   (if (equal web-mode-content-type "jsx")
-  ;;       (let ((web-mode-enable-part-face nil))
-  ;;         ad-do-it)
-  ;;     ad-do-it))
 
-  ;; (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
   (setq spacemacs--ansible-filename-re
         ".*\\(certbot\.yml|common\.yml|lh\-tomcat\.yml|lh\-ehr\.yml|requirements\.yml|main\.yml\\|site\.yml\\|encrypted\.yml\\|roles/.+\.yml\\|group_vars/.+\\|host_vars/.+|/ansible/.+\\)")
   (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
- (setq which-key-side-window-location 'bottom))
+  (setq which-key-side-window-location 'bottom)
+  (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
+  (setq flycheck-idle-change-delay 5))
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
 (defun dotspacemacs/emacs-custom-settings ()
