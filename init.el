@@ -27,20 +27,20 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
-  dotspacemacs-configuration-layers
-  '(
-    bibtex
-    ;; rebox
-    nginx
-    twitter
-    graphviz
-    ivy
-    asciidoc
-    elfeed
-    speed-reading
-    swift
-    plantuml
-    (auto-completion :variables
+   dotspacemacs-configuration-layers
+   '(
+     bibtex
+     ;; rebox
+     nginx
+     twitter
+     graphviz
+     ivy
+     asciidoc
+     ;; elfeed
+     speed-reading
+     swift
+     plantuml
+     (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-complete-with-key-sequence nil
@@ -51,7 +51,7 @@ values."
      better-defaults
      emacs-lisp
      (git :variables
-        git-magit-status-fullscreen t)
+          git-magit-status-fullscreen t)
      github
      gnus
      version-control
@@ -59,10 +59,10 @@ values."
      syntax-checking
      (latex :variables latex-enable-auto-fill t)
      (colors :variables
-              colors-colorize-identifiers 'all
-              colors-enable-nyan-cat-progress-bar t)
+             colors-colorize-identifiers 'all
+             colors-enable-nyan-cat-progress-bar t)
      docker
-     ansible
+     (ansible :variables ansible-auto-encrypt-decrypt t)
      puppet
      evil-commentary
      (evil-snipe :variables evil-snipe-enable-alternate-f-and-t-behaviors t)
@@ -73,21 +73,25 @@ values."
      autohotkey
      csv
      nlinum
-    (c-c++ :variables
-           c-c++-enable-clang-support t)
+     (c-c++ :variables
+            c-c++-enable-clang-support t)
      (clojure :variables clojure-enable-fancify-symbols t)
-     extra-langs
+     major-modes
      go
      (haskell :variables
-                 haskell-enable-ghci-ng-support t
-                 haskell-enable-shm-support t
-                 haskell-enable-hindent-style "andrew-gibiansky")
+              haskell-enable-ghci-ng-support t
+              haskell-enable-shm-support t
+              haskell-enable-hindent-style "andrew-gibiansky")
      html
      java
      (javascript :variables javascript-disable-tern-port-files t)
      (python :variables
-     	python-enable-yapf-format-on-save t
-     	python-test-runner '(nose pytest))
+     	       python-enable-yapf-format-on-save t
+             python-fill-column 80
+             python-auto-set-local-pyenv-version 'on-visit
+             python-auto-set-local-pyvenv-virtualenv 'on-visit
+             python-sort-imports-on-save t
+     	       python-test-runner '(nose pytest))
      racket
      (ruby :variables
            ruby-version-manager `rvm)
@@ -107,11 +111,11 @@ values."
      semantic
      deft
      (shell :variables
-             shell-default-shell 'ansi-term
-             shell-default-position  'bottom
-             shell-default-height 30
-             shell-default-term-shell "/bin/zsh")
-;;      typescript
+            shell-default-shell 'ansi-term
+            shell-default-position  'bottom
+            shell-default-height 30
+            shell-default-term-shell "/bin/zsh")
+     ;;      typescript
      erc
      chrome
      d
@@ -122,6 +126,8 @@ values."
      (org :variables
           org-enable-github-support t
           org-enable-reveal-js-support t
+          org-enable-org-journal-support t
+          org-enable-bootstrap-support t
           ;; org-enable-ioslide t
           )
      search-engine
@@ -162,13 +168,15 @@ values."
      slack
      systemd
      command-log
-     )
+     (terraform :variables terraform-auto-format-on-save t)
+     pass
+     parinfer)
 
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-  dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm groovy-mode)
+   dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
@@ -336,7 +344,7 @@ layers configuration."
   (fancy-battery-mode)
   (setq deft-directory "~/Dropbox/notes")
   (setq edit-server-url-major-mode-alist
-         '(("github\\.com" . org-mode)))
+        '(("github\\.com" . org-mode)))
   (setq powerline-default-separator 'arrow)
   ;; IBuffer
   (with-eval-after-load 'projectile
@@ -453,7 +461,8 @@ layers configuration."
       (when (and eslint (file-executable-p eslint))
         (setq-local flycheck-javascript-eslint-executable eslint))))
 
-
+  (setq org-reveal-root "file:///home/rob/reveal.js")
+  (setq ansible::vault-password-file ".vault_pass")
   (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
   (setq spacemacs--ansible-filename-re
         ".*\\(certbot\.yml|common\.yml|lh\-tomcat\.yml|lh\-ehr\.yml|requirements\.yml|main\.yml\\|site\.yml\\|encrypted\.yml\\|roles/.+\.yml\\|group_vars/.+\\|host_vars/.+|/ansible/.+\\)")
@@ -461,11 +470,6 @@ layers configuration."
   (setq which-key-side-window-location 'bottom)
   (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
   (setq flycheck-idle-change-delay 5))
+
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-)
