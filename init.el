@@ -170,13 +170,19 @@ values."
      command-log
      (terraform :variables terraform-auto-format-on-save t)
      pass
-     parinfer)
+     parinfer
+     groovy
+     (treemacs
+      :variables
+      treemacs-use-follow-mode t
+      treemacs-use-filewatch-mode t
+      treemacs-use-collapsed-directories 3))
 
    ;; List of additional packages that will be installed wihout being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm)
+   dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm yasnippet-snippets)
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
