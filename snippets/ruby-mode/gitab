@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: gitlab
+# key: gitlab
+# --
+require 'gitlab'
+Gitlab.configure do |config|
+  config.endpoint       = ${1:'https://gitlab.com/api/v4'}
+  config.private_token  = ENV['GITLAB_ACCESS_TOKEN']
+end
+
+$0

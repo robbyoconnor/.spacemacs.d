@@ -218,8 +218,8 @@ before layers configuration."
                                 (projects . 20)
                                 todos agenda)
    ;; List of themes, the first of the list is 7 loaded when spacemacs starts.7
-   ;7 ; Press <SPC> T n to cycle to the next theme in the list (works great
-   ;7 ; with 2 themes variants, one dark and one light)
+                                        ;7 ; Press <SPC> T n to cycle to the next theme in the list (works great
+                                        ;7 ; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(monokai
                          zenburn
                          spacemacs-dark
@@ -295,7 +295,7 @@ before layers configuration."
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
-    dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+   dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
 
    ;; The default package repository used if no explicit repository has been
    ;; specified with an installed package.
@@ -331,7 +331,12 @@ before layers configuration."
    )
   ;; User initialization goes here
   `(add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  `(add-to-list 'exec-path "~/.cabal/bin/"))
+  `(add-to-list 'exec-path "~/.cabal/bin/")
+
+  (setq configuration-layer--elpa-archives
+        '(("melpa"    . "melpa.org/packages/")
+          ("org"      . "orgmode.org/elpa/")
+          ("gnu"      . "elpa.gnu.org/packages/"))))
 
 (defun dotspacemacs/user-config ()
   "Configuration function.

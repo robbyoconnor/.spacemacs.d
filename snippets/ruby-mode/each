@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: each
+# key: each
+# --
+$1s.each do |$1|
+  $0
+end
