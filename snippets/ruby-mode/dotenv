@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: dotenv
-# key: dotenv
-# --
-require 'dotenv'
-Dotenv.load
