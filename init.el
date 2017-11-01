@@ -383,13 +383,13 @@ layers configuration."
                          ("Terminal" (or (name . "\\*ansi-term\\*")
                                          (name . "\\*eshell\\*")))))))))
   (add-hook 'ibuffer-mode-hook
-            (lambda ()
-              (ibuffer-switch-to-saved-filter-groups "Default")))
+     (lambda ()
+       (ibuffer-switch-to-saved-filter-groups "Default")))
   (add-hook 'ibuffer-mode-hook 'ibuffer-auto-mode)
   (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (push '("add-hook" . ?) prettify-symbols-alist)
-              (push '("defun" . ?𝆑) prettify-symbols-alist)))
+     (lambda ()
+       (push '("add-hook" . ?) prettify-symbols-alist)
+       (push '("defun" . ?𝆑) prettify-symbols-alist)))
 
   (global-prettify-symbols-mode)
   ;; UTF-8 please
@@ -430,15 +430,15 @@ layers configuration."
             (expand-file-name "~/plantuml.jar")))
 
     (add-hook 'web-mode-hook
-              (lambda ()
-                (when (equal web-mode-content-type "jsx")
-                  ;; enable flycheck
-                  (setq web-mode-indent-style 2
-                        web-mode-markup-indent-offset 2
-                        web-mode-css-indent-offset 2
-                        web-mode-code-indent-offset 2)
-                  (flycheck-select-checker 'jsxhint-checker)
-                  (flycheck-mode))))
+       (lambda ()
+         (when (equal web-mode-content-type "jsx")
+           ;; enable flycheck
+           (setq web-mode-indent-style 2
+                 web-mode-markup-indent-offset 2
+                 web-mode-css-indent-offset 2
+                 web-mode-code-indent-offset 2)
+           (flycheck-select-checker 'jsxhint-checker)
+           (flycheck-mode))))
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")

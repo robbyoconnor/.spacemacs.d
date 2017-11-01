@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: env
-# key: env
+# name: dotenv
+# key: dotenv
 # --
-ENV['$1']
-$0
+require 'dotenv'
+Dotenv.load

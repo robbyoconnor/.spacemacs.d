@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: each
-# key: each
+# name: e
+# key: e
 # --
 $1s.each do |$1|
   $0
