@@ -77,7 +77,10 @@ values."
             c-c++-enable-clang-support t)
      (clojure :variables clojure-enable-fancify-symbols t)
      major-modes
-     go
+     (go :variables
+         go-use-gometalinter t
+         go-use-gocheck-for-testing t
+         go-tab-width 4)
      (haskell :variables
               haskell-enable-ghci-ng-support t
               haskell-enable-shm-support t
@@ -97,7 +100,13 @@ values."
            ruby-version-manager `rvm)
      ruby-on-rails
      (rust :variables rust-enable-rustfmt-on-save t)
-     scala
+
+     (scala :variables
+            scala-indent:use-javadoc-style t
+            scala-enable-eldoc t
+            scala-auto-insert-asterisk-in-comments t
+            scala-use-unicode-arrows t
+            scala-auto-start-ensime t)
      shell-scripts
      (restclient :variables
                  restclient-use-org t)
