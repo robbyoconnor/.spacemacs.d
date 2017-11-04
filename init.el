@@ -78,8 +78,10 @@ values."
      (clojure :variables clojure-enable-fancify-symbols t)
      major-modes
      (go :variables
-         go-use-gometalinter t
+         gofmt-command "goimports"
+         go-use-gometalinter nil
          go-use-gocheck-for-testing t
+         go-use-test-args "-race -timeout 10s"
          go-tab-width 4)
      (haskell :variables
               haskell-enable-ghci-ng-support t
@@ -199,7 +201,7 @@ values."
    ;; the list `dotspacemacs-configuration-layers'
    dotspacemacs-delete-orphan-packages t))
 
-(defun dotspacemacs/init ()
+(defun dotspacemacs/user-init ()
   "Initialization function.
 This function is called at the very startup of Spacemacs initialization
 before layers configuration."
@@ -342,7 +344,7 @@ before layers configuration."
   `(add-hook 'doc-view-mode-hook 'auto-revert-mode)
   `(add-to-list 'exec-path "~/.cabal/bin/")
 
-  (setq configuration-layer--elpa-archives
+  (setq configuration-layer-elpa-archives
         '(("melpa"    . "melpa.org/packages/")
           ("org"      . "orgmode.org/elpa/")
           ("gnu"      . "elpa.gnu.org/packages/"))))
