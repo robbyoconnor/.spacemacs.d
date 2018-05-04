@@ -34,7 +34,8 @@ values."
      nginx
      twitter
      graphviz
-     ivy
+     (ivy :variables
+          ivy-enable-advanced-buffer-information t)
      asciidoc
      ;; elfeed
      speed-reading
@@ -79,10 +80,10 @@ values."
      major-modes
      (go :variables
          gofmt-command "goimports"
-         go-use-gometalinter nil
+         go-use-gometalinter t
          go-use-gocheck-for-testing t
          go-use-test-args "-race -timeout 10s"
-         go-tab-width 4)
+         go-tab-width 2)
      (haskell :variables
               haskell-enable-ghci-ng-support t
               haskell-enable-shm-support t
@@ -91,12 +92,15 @@ values."
      java
      (javascript :variables javascript-disable-tern-port-files t)
      (python :variables
-     	       python-enable-yapf-format-on-save t
+
+             python-backend 'lsp
+             python-enable-yapf-format-on-save t
              python-fill-column 80
              python-auto-set-local-pyenv-version 'on-visit
              python-auto-set-local-pyvenv-virtualenv 'on-visit
              python-sort-imports-on-save t
-     	       python-test-runner '(nose pytest))
+             python-test-runner '(nose pytest))
+     lsp
      racket
      (ruby :variables
            ruby-version-manager `rvm)
@@ -116,7 +120,7 @@ values."
      tmux
      vim-empty-lines
      spotify
-     pandoc
+     ;; pandoc
      vagrant
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      semantic
@@ -138,9 +142,9 @@ values."
           org-enable-github-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
-          org-enable-bootstrap-support t
-          ;; org-enable-ioslide t
-          )
+          org-enable-bootstrap-support t)
+     ;; org-enable-ioslide t
+
      search-engine
      evil-little-word
      yaml
@@ -183,6 +187,8 @@ values."
      pass
      parinfer
      groovy
+     kotlin
+     unicode-fonts
      (treemacs
       :variables
       treemacs-use-follow-mode t
@@ -199,7 +205,9 @@ values."
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
-   dotspacemacs-delete-orphan-packages t))
+   dotspacemacs-delete-orphan-packages t
+   dotspacemacs-pretty-docs t))
+
 
 (defun dotspacemacs/user-init ()
   "Initialization function.
@@ -342,12 +350,8 @@ before layers configuration."
    )
   ;; User initialization goes here
   `(add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  `(add-to-list 'exec-path "~/.cabal/bin/")
+  `(add-to-list 'exec-path "~/.cabal/bin/"))
 
-  (setq configuration-layer-elpa-archives
-        '(("melpa"    . "melpa.org/packages/")
-          ("org"      . "orgmode.org/elpa/")
-          ("gnu"      . "elpa.gnu.org/packages/"))))
 
 (defun dotspacemacs/user-config ()
   "Configuration function.
@@ -491,7 +495,11 @@ layers configuration."
   (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
   (setq which-key-side-window-location 'bottom)
   (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
-  (setq flycheck-idle-change-delay 5))
+  (setq flycheck-gometalinter-deadline "15s")
+  (setq flycheck-idle-change-delay 15)
+  (exec-path-from-shell-copy-env "GOPATH")
+  (exec-path-from-shell-copy-env "GOROOT"))
+
 
 (setq custom-file "~/.spacemacs.d/custom.el")
 (load custom-file)
