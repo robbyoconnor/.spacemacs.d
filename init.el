@@ -29,6 +29,8 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     coffeescript
+     json
      bibtex
      ;; rebox
      nginx
@@ -495,10 +497,11 @@ layers configuration."
   (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
   (setq which-key-side-window-location 'bottom)
   (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
-  (setq flycheck-gometalinter-deadline "15s")
+  (setq flycheck-gometalinter-deadline "45s")
   (setq flycheck-gometalinter-fast t)
   (setq flycheck-gometalinter-test t)
   (setq flycheck-gometalinter-vendor t)
+  (setq flycheck-gometalinter-disable-linters '("gotype" "gocyclo"))
   (setq flycheck-idle-change-delay 15)
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-copy-env "GOROOT"))
