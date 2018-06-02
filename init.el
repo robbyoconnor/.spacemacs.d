@@ -75,7 +75,6 @@ values."
      xkcd
      autohotkey
      csv
-     nlinum
      (c-c++ :variables
             c-c++-enable-clang-support t)
      (clojure :variables clojure-enable-fancify-symbols t)
@@ -147,6 +146,9 @@ values."
           org-enable-github-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
+          org-enable-hugo-support t
+          org-projectile-file "TODOs.org"
+          org-want-todo-bindings t
           org-enable-bootstrap-support t)
      ;; org-enable-ioslide t
 
@@ -611,7 +613,16 @@ This function is called at the very end of Spacemacs startup, after layer
 configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
- (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
+
+  (setq spaceline-org-clock-p t)
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (mapcar '(lambda (file)
+               (when (file-exists-p file)
+                 (push file org-agenda-files)))
+            (org-projectile-todo-files)))
+  (setq org-journal-dir "~/org/journal/")
+  (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (setq create-lockfiles nil)
   (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
@@ -652,13 +663,13 @@ before packages are loaded."
                          ("Terminal" (or (name . "\\*ansi-term\\*")
                                          (name . "\\*eshell\\*")))))))))
   (add-hook 'ibuffer-mode-hook
-     (lambda ()
-       (ibuffer-switch-to-saved-filter-groups "Default")))
+            (lambda ()
+              (ibuffer-switch-to-saved-filter-groups "Default")))
   (add-hook 'ibuffer-mode-hook 'ibuffer-auto-mode)
   (add-hook 'emacs-lisp-mode-hook
-     (lambda ()
-       (push '("add-hook" . ?) prettify-symbols-alist)
-       (push '("defun" . ?𝆑) prettify-symbols-alist)))
+            (lambda ()
+              (push '("add-hook" . ?) prettify-symbols-alist)
+              (push '("defun" . ?𝆑) prettify-symbols-alist)))
 
   (global-prettify-symbols-mode)
   ;; UTF-8 please
@@ -699,15 +710,15 @@ before packages are loaded."
             (expand-file-name "~/plantuml.jar")))
 
     (add-hook 'web-mode-hook
-       (lambda ()
-         (when (equal web-mode-content-type "jsx")
-           ;; enable flycheck
-           (setq web-mode-indent-style 2
-                 web-mode-markup-indent-offset 2
-                 web-mode-css-indent-offset 2
-                 web-mode-code-indent-offset 2)
-           (flycheck-select-checker 'jsxhint-checker)
-           (flycheck-mode))))
+              (lambda ()
+                (when (equal web-mode-content-type "jsx")
+                  ;; enable flycheck
+                  (setq web-mode-indent-style 2
+                        web-mode-markup-indent-offset 2
+                        web-mode-css-indent-offset 2
+                        web-mode-code-indent-offset 2)
+                  (flycheck-select-checker 'jsxhint-checker)
+                  (flycheck-mode))))
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
