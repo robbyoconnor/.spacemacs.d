@@ -185,7 +185,7 @@ values."
      (typography :variables typography-enable-typographic-editing nil)
      evil-cleverparens
      ;; emberjs
-     pdf-tools
+     pdf
      imenu-list
      slack
      systemd
@@ -196,6 +196,7 @@ values."
      groovy
      kotlin
      unicode-fonts
+     epub
      (treemacs
       :variables
       treemacs-use-follow-mode t
@@ -301,13 +302,12 @@ It should only modify the values of Spacemacs settings."
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
-   ;; `recents' `bookmarks' `projects' `agenda' `todos'.
+   ;; `recents' `todos'  `projects' `agenda' `bookmarks'.
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
-   dotspacemacs-startup-lists '((bookmarks . 5)
-                                (recents . 5)
-                                (projects . 20)
-                                todos agenda)
+   dotspacemacs-startup-lists '((recents . 5)
+                                todos agenda
+                                (projects . 20))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
