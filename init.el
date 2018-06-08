@@ -706,15 +706,15 @@ before packages are loaded."
             (expand-file-name "~/plantuml.jar")))
 
     (add-hook 'web-mode-hook
-              (lambda ()
-                (when (equal web-mode-content-type "jsx")
-                  ;; enable flycheck
-                  (setq web-mode-indent-style 2
-                        web-mode-markup-indent-offset 2
-                        web-mode-css-indent-offset 2
-                        web-mode-code-indent-offset 2)
-                  (flycheck-select-checker 'jsxhint-checker)
-                  (flycheck-mode))))
+       (lambda ()
+         (when (equal web-mode-content-type "jsx")
+           ;; enable flycheck
+           (setq web-mode-indent-style 2
+                 web-mode-markup-indent-offset 2
+                 web-mode-css-indent-offset 2
+                 web-mode-code-indent-offset 2)
+           (flycheck-select-checker 'jsxhint-checker)
+           (flycheck-mode))))
 
     (defadvice web-mode-highlight-part (around tweak-jsx activate)
       (if (equal web-mode-content-type "jsx")
@@ -761,6 +761,7 @@ before packages are loaded."
   (setq flycheck-gometalinter-test t)
   (setq flycheck-gometalinter-vendor t)
   (setq flycheck-gometalinter-concurrency 4)
+  (setq flycheck-gometalinter-disable-linters '("dupl"))
   (setq flycheck-idle-change-delay 15)
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-copy-env "GOROOT"))
