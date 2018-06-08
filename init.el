@@ -150,10 +150,7 @@ values."
           org-projectile-file "TODOs.org"
           org-want-todo-bindings t
           org-enable-bootstrap-support t)
-     ;; org-enable-ioslide t
-
      search-engine
-     evil-little-word
      yaml
      sql
      nim
@@ -183,7 +180,6 @@ values."
           elm-reactor-address "0.0.0.0") ; default 127.0.0.1
      elixir
      (typography :variables typography-enable-typographic-editing nil)
-     evil-cleverparens
      ;; emberjs
      pdf
      imenu-list
@@ -764,7 +760,7 @@ before packages are loaded."
   (setq flycheck-gometalinter-fast t)
   (setq flycheck-gometalinter-test t)
   (setq flycheck-gometalinter-vendor t)
-  (setq flycheck-gometalinter-disable-linters '("gotype" "gocyclo"))
+  (setq flycheck-gometalinter-concurrency 4)
   (setq flycheck-idle-change-delay 15)
   (exec-path-from-shell-copy-env "GOPATH")
   (exec-path-from-shell-copy-env "GOROOT"))
