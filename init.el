@@ -84,6 +84,7 @@ values."
          go-use-gometalinter t
          go-use-gocheck-for-testing t
          go-use-test-args "-race -timeout 10s"
+         godoc-at-point-function 'godoc-gogetdoc
          go-tab-width 2)
      (haskell :variables
               haskell-enable-ghci-ng-support t
@@ -307,7 +308,7 @@ It should only modify the values of Spacemacs settings."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                todos agenda
+                                todos
                                 (projects . 20))
 
    ;; True if the home buffer should respond to resize events. (default t)
