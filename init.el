@@ -29,8 +29,18 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     sphinx
+     web-beautify
+     transmission
+     xclipboard
+     node
+     selectric
+     (templates :variables
+                 templates-private-directory "~/.spacemacs.d/templates")
      coffeescript
      json
+     jsonnet
+     epub
      bibtex
      ;; rebox
      nginx
@@ -77,7 +87,7 @@ values."
      csv
      (c-c++ :variables
             c-c++-enable-clang-support t)
-     (clojure :variables clojure-enable-fancify-symbols t)
+     ;; (clojure How...you can't pay :variables clojure-enable-fancify-symbols t)
      major-modes
      (go :variables
          gofmt-command "goimports"
@@ -308,7 +318,6 @@ It should only modify the values of Spacemacs settings."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                todos
                                 (projects . 20))
 
    ;; True if the home buffer should respond to resize events. (default t)
@@ -599,7 +608,7 @@ before packages are loaded."
     (rvm-activate-corresponding-ruby))
   (global-evil-mc-mode)
   (rvm-use-default)
-  (spacemacs/toggle-typographic-substitutions-off )
+  (spacemacs/toggle-typographic-substitutions-off)
   (setq-default spacemacs-mode-line-minor-modesp nil
                 fancy-battery-last-status t)
   (fancy-battery-mode)
@@ -633,13 +642,13 @@ before packages are loaded."
                          ("Terminal" (or (name . "\\*ansi-term\\*")
                                          (name . "\\*eshell\\*")))))))))
   (add-hook 'ibuffer-mode-hook
-            (lambda ()
-              (ibuffer-switch-to-saved-filter-groups "Default")))
+     (lambda ()
+       (ibuffer-switch-to-saved-filter-groups "Default")))
   (add-hook 'ibuffer-mode-hook 'ibuffer-auto-mode)
   (add-hook 'emacs-lisp-mode-hook
-            (lambda ()
-              (push '("add-hook" . ?) prettify-symbols-alist)
-              (push '("defun" . ?𝆑) prettify-symbols-alist)))
+     (lambda ()
+       (push '("add-hook" . ?) prettify-symbols-alist)
+       (push '("defun" . ?𝆑) prettify-symbols-alist)))
 
   (global-prettify-symbols-mode)
   ;; UTF-8 please
@@ -735,10 +744,9 @@ before packages are loaded."
   ;; (setq flycheck-gometalinter-test t)
   ;; (setq flycheck-gometalinter-vendor t)
   ;; (setq flycheck-gometalinter-concurrency 4)
-  ;; (setq flycheck-gometalinter-disable-linters '("dupl"))
-  (setq flycheck-idle-change-delay 15)
-  (exec-path-from-shell-copy-env "GOPATH")
-  (exec-path-from-shell-copy-env "GOROOT"))
+  ;; (setq flycheck-gometalinter-disable-all t)
+
+  (setq flycheck-idle-change-delay 60))
 
 
 
