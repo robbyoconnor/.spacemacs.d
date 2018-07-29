@@ -191,7 +191,7 @@ values."
           elm-reactor-address "0.0.0.0") ; default 127.0.0.1
      elixir
      (typography :variables typography-enable-typographic-editing nil)
-     ;; emberjs
+     emberjs
      pdf
      imenu-list
      slack
