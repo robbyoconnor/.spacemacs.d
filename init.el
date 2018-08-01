@@ -91,6 +91,7 @@ values."
      major-modes
      (go :variables
          gofmt-command "goimports"
+         go-format-before-save t
          go-use-gometalinter t
          go-use-gocheck-for-testing t
          go-use-test-args "-race -timeout 10s"
@@ -178,7 +179,7 @@ values."
      jabber
      cscope
      vinegar
-     rcirc
+     ;; rcirc
      games
      ;; stackexchange
      react
