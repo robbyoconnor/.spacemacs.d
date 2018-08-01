@@ -1,1 +1,2 @@
 custom.el filter=git-crypt diff=git-crypt
+.spacemacs.env filter=git-crypt diff=git-crypt
