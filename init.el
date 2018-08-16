@@ -90,6 +90,7 @@ values."
      ;; (clojure How...you can't pay :variables clojure-enable-fancify-symbols t)
      major-modes
      (go :variables
+         go-backend 'lsp
          gofmt-command "goimports"
          go-format-before-save t
          go-use-gometalinter t
@@ -746,6 +747,9 @@ before packages are loaded."
   ;; (setq flycheck-gometalinter-vendor t)
   ;; (setq flycheck-gometalinter-concurrency 4)
   ;; (setq flycheck-gometalinter-disable-all t)
+  (setq rst-sphinx-target-parent "/home/rob/sphinx/build")
+  (setq rst-sphinx-target-projects
+        '(("teleirc" . (html  "/teleirc" nil))))
 
   (setq flycheck-idle-change-delay 60))
 
