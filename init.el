@@ -40,6 +40,7 @@ values."
      coffeescript
      json
      jsonnet
+     julia
      epub
      bibtex
      ;; rebox
