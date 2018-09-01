@@ -29,6 +29,7 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     prettier
      sphinx
      web-beautify
      transmission
@@ -36,7 +37,7 @@ values."
      node
      selectric
      (templates :variables
-                 templates-private-directory "~/.spacemacs.d/templates")
+                templates-private-directory "~/.spacemacs.d/templates")
      coffeescript
      json
      jsonnet
@@ -50,7 +51,7 @@ values."
      (ivy :variables
           ivy-enable-advanced-buffer-information t)
      asciidoc
-     ;; elfeed
+     elfeed
      speed-reading
      swift
      plantuml
@@ -87,8 +88,13 @@ values."
      autohotkey
      csv
      (c-c++ :variables
-            c-c++-enable-clang-support t)
-     ;; (clojure How...you can't pay :variables clojure-enable-fancify-symbols t)
+            c-c++-enable-clang-support t
+            c-c++-enable-clang-format-on-save t
+            c-c++-enable-rtags-support t
+            c-c++-enable-google-style t
+            c-c++-enable-google-newline t
+            c-c++-default-mode-for-headers 'c++-mode)
+     ;; (clojure  :variables clojure-enable-fancify-symbols t)
      major-modes
      (go :variables
          go-backend 'lsp
@@ -138,7 +144,7 @@ values."
      tmux
      vim-empty-lines
      spotify
-     ;; pandoc
+     pandoc
      vagrant
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
      semantic
@@ -148,7 +154,7 @@ values."
             shell-default-position  'bottom
             shell-default-height 30
             shell-default-term-shell "/bin/zsh")
-     ;;      typescript
+     typescript
      erc
      chrome
      d
@@ -168,7 +174,7 @@ values."
      yaml
      sql
      nim
-     ipython-notebook
+     ;; ipython-notebook
      lua
      scheme
      purescript
@@ -219,7 +225,7 @@ values."
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm yasnippet-snippets)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(ebuild-mode)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -609,7 +615,6 @@ before packages are loaded."
   (setq create-lockfiles nil)
   (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
     (rvm-activate-corresponding-ruby))
-  (global-evil-mc-mode)
   (rvm-use-default)
   (spacemacs/toggle-typographic-substitutions-off)
   (setq-default spacemacs-mode-line-minor-modesp nil
