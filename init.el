@@ -87,13 +87,13 @@ values."
      xkcd
      autohotkey
      csv
-     (c-c++ :variables
-            c-c++-enable-clang-support t
-            c-c++-enable-clang-format-on-save t
-            c-c++-enable-rtags-support t
-            c-c++-enable-google-style t
-            c-c++-enable-google-newline t
-            c-c++-default-mode-for-headers 'c++-mode)
+     ;; (c-c++ :variables
+     ;;        c-c++-enable-clang-support t
+     ;;        c-c++-enable-clang-format-on-save t
+     ;;        c-c++-enable-rtags-support t
+     ;;        c-c++-enable-google-style t
+     ;;        c-c++-enable-google-newline t
+     ;;        c-c++-default-mode-for-headers 'c++-mode)
      ;; (clojure  :variables clojure-enable-fancify-symbols t)
      major-modes
      (go :variables
@@ -327,7 +327,7 @@ It should only modify the values of Spacemacs settings."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 20))
+                                (projects . 25))
 
    ;; True if the home buffer should respond to resize events. (default t)
    dotspacemacs-startup-buffer-responsive t
@@ -526,7 +526,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; If non-nil, start an Emacs server if one is not already running.
    ;; (default nil)
-   dotspacemacs-enable-server nil
+   dotspacemacs-enable-server t
 
    ;; If non-nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
