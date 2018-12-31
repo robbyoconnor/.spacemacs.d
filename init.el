@@ -213,6 +213,7 @@ values."
      kotlin
      unicode-fonts
      epub
+     multiple-cursors
      (treemacs
       :variables
       treemacs-use-follow-mode t
