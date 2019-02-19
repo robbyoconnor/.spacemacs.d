@@ -757,6 +757,12 @@ before packages are loaded."
   (setq rst-sphinx-target-parent "/home/rob/sphinx/build")
   (setq rst-sphinx-target-projects
         '(("teleirc" . (html  "/teleirc" nil))))
+  (with-eval-after-load 'dockerfile-mode
+    (defun dockerfile-indent-line-function ())
+    (setq indent-line-function #'dockerfile-indent-line-function))
+
+
+
 
   (setq flycheck-idle-change-delay 60))
 
