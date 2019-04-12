@@ -29,6 +29,11 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     ietf
+     '((yang
+        :variables
+        yang-pyang-rules "ietf"))
+
      prettier
      sphinx
      web-beautify
@@ -127,7 +132,8 @@ values."
      lsp
      racket
      (ruby :variables
-           ruby-version-manager `rvm)
+           ruby-test-runner 'rspec
+           ruby-version-manager 'rbenv)
      ruby-on-rails
      (rust :variables rust-enable-rustfmt-on-save t)
 
@@ -174,7 +180,7 @@ values."
      yaml
      sql
      nim
-     ;; ipython-notebook
+     ipython-notebook
      lua
      scheme
      purescript
@@ -614,9 +620,8 @@ before packages are loaded."
   (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (setq create-lockfiles nil)
-  (defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-    (rvm-activate-corresponding-ruby))
-  (rvm-use-default)
+  (setq lsp-auto-guess-root nil)
+  (rbenv-use-corresponding)
   (spacemacs/toggle-typographic-substitutions-off)
   (setq-default spacemacs-mode-line-minor-modesp nil
                 fancy-battery-last-status t)
