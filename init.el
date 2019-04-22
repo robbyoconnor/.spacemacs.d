@@ -33,7 +33,8 @@ values."
      '((yang
         :variables
         yang-pyang-rules "ietf"))
-
+     dap
+     import-js
      prettier
      sphinx
      web-beautify
@@ -193,6 +194,7 @@ values."
      jabber
      cscope
      vinegar
+     django
      ;; rcirc
      games
      ;; stackexchange
