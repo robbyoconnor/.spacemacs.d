@@ -30,9 +30,9 @@ values."
    dotspacemacs-configuration-layers
    '(
      ietf
-     '((yang
+     (yang
         :variables
-        yang-pyang-rules "ietf"))
+        yang-pyang-rules "ietf")
      dap
      import-js
      prettier
