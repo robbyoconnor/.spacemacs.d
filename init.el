@@ -28,7 +28,7 @@ values."
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
-   '(
+   '(windows-scripts
      ietf
      (yang
         :variables
@@ -133,6 +133,7 @@ values."
      lsp
      racket
      (ruby :variables
+           ruby-backend 'lsp
            ruby-test-runner 'rspec
            ruby-version-manager 'rbenv)
      ruby-on-rails
@@ -157,6 +158,7 @@ values."
      semantic
      deft
      (shell :variables
+            close-window-with-teminal t
             shell-default-shell 'ansi-term
             shell-default-position  'bottom
             shell-default-height 30
@@ -221,7 +223,7 @@ values."
      kotlin
      unicode-fonts
      epub
-     multiple-cursors
+     (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      (treemacs
       :variables
       treemacs-use-follow-mode t
