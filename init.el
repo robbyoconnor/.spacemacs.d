@@ -116,7 +116,8 @@ values."
               haskell-enable-shm-support t
               haskell-enable-hindent-style "andrew-gibiansky")
      html
-     java
+     (java :variables
+          java-backend 'lsp)
      (javascript :variables
                  javascript-disable-tern-port-files t
                  javascript-backend 'lsp)
