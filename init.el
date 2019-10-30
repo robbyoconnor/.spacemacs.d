@@ -29,6 +29,13 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(windows-scripts
+     (crystal :variables
+              crystal-enable-auto-format t)
+     '((cmake :variables
+              cmake-enable-cmake-ide-support t))
+     '((conda :variables
+              conda-anaconda-home "/home/rob/conda"))
+     restructuredtext
      ietf
      (yang
         :variables
@@ -146,7 +153,7 @@ values."
             scala-auto-insert-asterisk-in-comments t
             scala-use-unicode-arrows t
             scala-auto-start-ensime t)
-     shell-scripts
+     (shell-scripts :variables shell-scripts-backend 'lsp)
      (restclient :variables
                  restclient-use-org t)
      themes-megapack
@@ -202,7 +209,6 @@ values."
      games
      ;; stackexchange
      react
-     php
      vimscript
      geolocation
      idris
@@ -614,6 +620,7 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  (require 'window-purpose) ; workaround until https://github.com/bmag/emacs-purpose/issues/158 is fixed
   (setq spaceline-org-clock-p t)
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
