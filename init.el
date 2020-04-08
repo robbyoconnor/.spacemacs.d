@@ -28,26 +28,31 @@ values."
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
-   '(windows-scripts
+   '((php :variables
+          php-backend 'lsp)
+     windows-scripts
      (crystal :variables
               crystal-enable-auto-format t)
-     '((cmake :variables
-              cmake-enable-cmake-ide-support t))
-     '((conda :variables
-              conda-anaconda-home "/home/rob/conda"))
+     (cmake :variables
+              cmake-enable-cmake-ide-support t)
+     (conda :variables
+              conda-anaconda-home "/home/rob/conda")
      restructuredtext
+     (vue :variables vue-backend 'lsp)
+     helpful
      ietf
      (yang
         :variables
         yang-pyang-rules "ietf")
      dap
+     kubernetes
      import-js
      prettier
      sphinx
      web-beautify
      transmission
      xclipboard
-     node
+     (node :variables node-add-modules-path t)
      selectric
      (templates :variables
                 templates-private-directory "~/.spacemacs.d/templates")
@@ -122,11 +127,15 @@ values."
               haskell-enable-ghci-ng-support t
               haskell-enable-shm-support t
               haskell-enable-hindent-style "andrew-gibiansky")
-     html
+     (html :variables web-fmt-tool 'web-beautify)
+
      (java :variables
           java-backend 'lsp)
      (javascript :variables
-                 javascript-disable-tern-port-files t
+                 node-add-modules-path t
+                 javascript-fmt-on-save t
+                 javascript-fmt-tool 'prettier
+                 javascript-import-tool 'import-js
                  javascript-backend 'lsp)
 
      (python :variables
@@ -233,6 +242,7 @@ values."
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      (treemacs
       :variables
+      treemacs-use-git-mode t
       treemacs-use-follow-mode t
       treemacs-use-filewatch-mode t
       treemacs-use-collapsed-directories 3))
@@ -732,7 +742,7 @@ before packages are loaded."
         ad-do-it)))
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
-        browse-url-generic-program "google-chrome-beta")
+        browse-url-generic-program "chromium-browser")
   (setq
    ;; Use another eclimd executable
    eclim-executable "~/eclipse/eclim"
@@ -778,9 +788,9 @@ before packages are loaded."
     (defun dockerfile-indent-line-function ())
     (setq indent-line-function #'dockerfile-indent-line-function))
 
-
-
-
+  (with-eval-after-load 'evil-surround
+    (setq-default evil-surround-pairs-alist
+                (push #'(?~ . ("``" . "``")) evil-surround-pairs-alist)))
   (setq flycheck-idle-change-delay 60))
 
 
