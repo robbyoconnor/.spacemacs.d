@@ -245,6 +245,7 @@ values."
       treemacs-use-git-mode t
       treemacs-use-follow-mode t
       treemacs-use-filewatch-mode t
+      treemacs-use-persp-scope 'Perspectives
       treemacs-use-collapsed-directories 3))
 
    ;; List of additional packages that will be installed wihout being
@@ -609,7 +610,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-
+  '(require 'semantic/db-file)
   '(add-hook 'doc-view-mode-hook 'auto-revert-mode)
   '(add-to-list 'exec-path "~/.cabal/bin/"))
 
@@ -787,6 +788,19 @@ before packages are loaded."
   (with-eval-after-load 'dockerfile-mode
     (defun dockerfile-indent-line-function ())
     (setq indent-line-function #'dockerfile-indent-line-function))
+  (with-eval-after-load 'web-mode
+    (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+    (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+  (setq-default
+   ;; js2-mode
+   js2-basic-offset 2
+   ;; web-mode
+   css-indent-offset 2
+   web-mode-markup-indent-offset 2
+   web-mode-css-indent-offset 2
+   web-mode-code-indent-offset 2
+   web-mode-attr-indent-offset 2)
 
   (with-eval-after-load 'evil-surround
     (setq-default evil-surround-pairs-alist
