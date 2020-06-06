@@ -160,12 +160,12 @@ This function should only modify configuration layer settings."
      ruby-on-rails
      (rust :variables rust-enable-rustfmt-on-save t)
 
-     (scala :variables
-            scala-indent:use-javadoc-style t
-            scala-enable-eldoc t
-            scala-auto-insert-asterisk-in-comments t
-            scala-use-unicode-arrows t
-            scala-auto-start-ensime t)
+     ;; (scala :variables
+     ;;        scala-indent:use-javadoc-style t
+     ;;        scala-enable-eldoc t
+     ;;        scala-auto-insert-asterisk-in-comments t
+     ;;        scala-use-unicode-arrows t
+     ;;        scala-auto-start-ensime t)
      (shell-scripts :variables shell-scripts-backend 'lsp)
      (restclient :variables
                  restclient-use-org t)
@@ -244,13 +244,8 @@ This function should only modify configuration layer settings."
      unicode-fonts
      epub
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
-     (treemacs
-      :variables
-      treemacs-use-git-mode t
-      treemacs-use-follow-mode t
-      treemacs-use-filewatch-mode t
-      treemacs-use-persp-scope 'Perspectives
-      treemacs-use-collapsed-directories 3))
+     (treemacs))
+
 
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -258,7 +253,7 @@ This function should only modify configuration layer settings."
    ;; configuration in `dotspacemacs/config'.
    dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm yasnippet-snippets)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(ebuild-mode)
+   dotspacemacs-excluded-packages '(ebuild-mode flycheck-mix)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -301,7 +296,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    ;; (default 5)
-   dotspacemacs-elpa-timeout 5
+   dotspacemacs-elpa-timeout 15
 
    ;; Set `gc-cons-threshold' and `gc-cons-percentage' when startup finishes.
    ;; This is an advanced option and should not be changed unless you suspect
@@ -628,14 +623,12 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
-  '(require 'semantic/db-file)
-  '(add-hook 'doc-view-mode-hook 'auto-revert-mode)
-  '(add-to-list 'exec-path "~/.cabal/bin/"))
+  '(add-hook 'doc-view-mode-hook 'auto-revert-mode))
 
 
 
 
-(defun dotspacemacs/user-load ()
+(defun fetspacemacs/user-load ()
   "Library to load while dumping.
 This function is called while dumping Spacemacs configuration. You can
 `require' or `load' the libraries of your choice that will be included
@@ -650,6 +643,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
   (require 'window-purpose) ; workaround until https://github.com/bmag/emacs-purpose/issues/158 is fixed
+  (require 'semantic/db-file)
   (setq spaceline-org-clock-p t)
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
@@ -666,8 +660,6 @@ before packages are loaded."
   (spacemacs/toggle-typographic-substitutions-off)
   (setq-default spacemacs-mode-line-minor-modesp nil
                 fancy-battery-last-status t)
-  (fancy-battery-mode)
-  (setq deft-directory "~/Dropbox/notes")
   (setq edit-server-url-major-mode-alist
         '(("github\\.com" . org-mode)))
   (setq powerline-default-separator 'arrow)
