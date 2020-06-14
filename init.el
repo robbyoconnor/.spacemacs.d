@@ -711,8 +711,9 @@ before packages are loaded."
       (modify-syntax-entry ?_ "w" table)
       (with-syntax-table table
         ad-do-it)))
-  (setq python-shell-interpreter "ipython")
+  (setq python-shell-interpreter "python")
   (setq python-shell-interpreter-args "-i ")
+  (setq python-tab-width 2)
   (setq vc-follow-symlinks t)
   (setq tab-width 2)
   (setq magit-push-always-verify nil)
