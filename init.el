@@ -61,7 +61,10 @@ This function should only modify configuration layer settings."
      (templates :variables
                 templates-private-directory "~/.spacemacs.d/templates")
      coffeescript
-     json
+     (json :variables
+           json-fmt-tool 'prettier
+           json-fmt-on-save t
+           json-backend 'lsp)
      jsonnet
      julia
      epub
@@ -131,7 +134,7 @@ This function should only modify configuration layer settings."
               haskell-enable-ghci-ng-support t
               haskell-enable-shm-support t
               haskell-enable-hindent-style "andrew-gibiansky")
-     (html :variables web-fmt-tool 'web-beautify)
+     (html :variables web-fmt-tool 'prettier)
 
      (java :variables
           java-backend 'lsp)
@@ -145,11 +148,14 @@ This function should only modify configuration layer settings."
      (python :variables
 
              python-backend 'lsp
+             python-lsp-server 'pyls
+             python-shell--interpreter "ipython"
              python-enable-yapf-format-on-save t
              python-fill-column 80
              python-auto-set-local-pyenv-version 'on-visit
              python-auto-set-local-pyvenv-virtualenv 'on-visit
              python-sort-imports-on-save t
+             python-pipenv-activate t
              python-test-runner '(nose pytest))
      lsp
      racket
@@ -222,7 +228,8 @@ This function should only modify configuration layer settings."
      games
      ;; stackexchange
      react
-     vimscript
+     (vimscript :variables
+                vimscript-backend 'lsp)
      geolocation
      idris
      (elm :variables
@@ -242,7 +249,6 @@ This function should only modify configuration layer settings."
      groovy
      kotlin
      unicode-fonts
-     epub
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      (treemacs))
 
@@ -376,9 +382,15 @@ It should only modify the values of Spacemacs settings."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(monokai
-                         zenburn
-                         spacemacs-dark
-                         spacemacs-light)
+                         doom-city-lights
+                         doom-solarized-dark
+                         doom-molokai
+                         doom-dracula
+                         doom-material
+                         doom-challenger-deep
+                         ;; zenburn
+                         spacemacs-dark)
+
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
    ;; `all-the-icons', `custom', `vim-powerline' and `vanilla'. The first three
@@ -414,7 +426,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default "M-m")
    dotspacemacs-emacs-leader-key "M-m"
 
-   ;; Major mode leader key is a shortcut key which is the equivalent of
+
+
+   ;; Major mode leader key is a shortcu
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
 
