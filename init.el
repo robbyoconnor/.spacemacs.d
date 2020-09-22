@@ -50,6 +50,7 @@ This function should only modify configuration layer settings."
         yang-pyang-rules "ietf")
      dap
      kubernetes
+     outshine
      import-js
      prettier
      sphinx
@@ -146,7 +147,6 @@ This function should only modify configuration layer settings."
                  javascript-backend 'lsp)
 
      (python :variables
-
              python-backend 'lsp
              python-lsp-server 'pyls
              python-shell--interpreter "ipython"
@@ -186,7 +186,7 @@ This function should only modify configuration layer settings."
      deft
      (shell :variables
             close-window-with-teminal t
-            shell-default-shell 'ansi-term
+            shell-default-shell 'vterm
             shell-default-position  'bottom
             shell-default-height 30
             shell-default-term-shell "/bin/zsh")
@@ -407,7 +407,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("SauceCodePro NF"
                                :size 13
                                :weight normal
                                :width normal)
@@ -637,6 +637,7 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (set-fontset-font t 'unicode "Symbola" nil 'prepend)
   '(add-hook 'doc-view-mode-hook 'auto-revert-mode))
 
 
