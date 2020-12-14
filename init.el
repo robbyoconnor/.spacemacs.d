@@ -32,22 +32,30 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '((php :variables
+   '((dart :variables
+           dart-backend 'lsp
+           lsp-dart-sdk-dir " ~/flutter/bin/cache/dart-sdk/"
+           lsp-enable-on-type-formatting t)
+     (php :variables
           php-backend 'lsp)
      windows-scripts
+     ;; (tabs :variables
+     ;;      tabs-style "bar")
+
      (crystal :variables
+              crystal-backend 'lsp
               crystal-enable-auto-format t)
      (cmake :variables
-              cmake-enable-cmake-ide-support t)
+            cmake-enable-cmake-ide-support t)
      (conda :variables
-              conda-anaconda-home "/home/rob/conda")
+            conda-anaconda-home "/home/rob/conda")
      restructuredtext
      (vue :variables vue-backend 'lsp)
      helpful
      ietf
      (yang
-        :variables
-        yang-pyang-rules "ietf")
+      :variables
+      yang-pyang-rules "ietf")
      dap
      kubernetes
      outshine
@@ -98,7 +106,9 @@ This function should only modify configuration layer settings."
      version-control
      (markdown :variables markdown-live-preview-engine 'vmd)
      syntax-checking
-     (latex :variables latex-enable-auto-fill t)
+     (latex :variables
+	          latex-backend 'lsp
+	          latex-enable-auto-fill t)
      (colors :variables
              colors-colorize-identifiers 'all
              colors-enable-nyan-cat-progress-bar t)
@@ -138,7 +148,7 @@ This function should only modify configuration layer settings."
      (html :variables web-fmt-tool 'prettier)
 
      (java :variables
-          java-backend 'lsp)
+           java-backend 'lsp)
      (javascript :variables
                  node-add-modules-path t
                  javascript-fmt-on-save t
@@ -148,8 +158,10 @@ This function should only modify configuration layer settings."
 
      (python :variables
              python-backend 'lsp
-             python-lsp-server 'pyls
-             python-shell--interpreter "ipython"
+             python-lsp-server 'pyright
+             python-formatter 'yapf
+             python-format-on-save nil
+             python-shell-interpreter "ipython"
              python-enable-yapf-format-on-save t
              python-fill-column 80
              python-auto-set-local-pyenv-version 'on-visit
@@ -165,6 +177,8 @@ This function should only modify configuration layer settings."
            ruby-version-manager 'rbenv)
      ruby-on-rails
      (rust :variables rust-enable-rustfmt-on-save t)
+     ;; (perl5 :variables
+     ;;        perl5-backend 'lsp)
 
      ;; (scala :variables
      ;;        scala-indent:use-javadoc-style t
@@ -199,12 +213,18 @@ This function should only modify configuration layer settings."
      prodigy
      evernote
      (org :variables
+          org-want-todo-bindings t
           org-enable-github-support t
           org-enable-reveal-js-support t
           org-enable-org-journal-support t
           org-enable-hugo-support t
           org-projectile-file "TODOs.org"
           org-want-todo-bindings t
+          org-enable-sticky-headerr t
+          org-enable-hugo-support t
+          org-enable-epub-support t
+          org-enable-verb-support t
+          org-enable-roam-support t
           org-enable-bootstrap-support t)
      search-engine
      yaml
@@ -249,6 +269,7 @@ This function should only modify configuration layer settings."
      groovy
      kotlin
      unicode-fonts
+     graphql
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      (treemacs))
 
@@ -277,12 +298,12 @@ It should only modify the values of Spacemacs settings."
    ;; to compile Emacs 27 from source following the instructions in file
    ;; EXPERIMENTAL.org at to root of the git repository.
    ;; (default nil)
-   dotspacemacs-enable-emacs-pdumper nil
+   dotspacemacs-enable-emacs-pdumper t
 
    ;; Name of executable file pointing to emacs 27+. This executable must be
    ;; in your PATH.
    ;; (default "emacs")
-   dotspacemacs-emacs-pdumper-executable-file "emacs"
+   dotspacemacs-emacs-pdumper-executable-file "emacs-snapshot"
 
    ;; Name of the Spacemacs dump file. This is the file will be created by the
    ;; portable dumper in the cache directory under dumps sub-directory.
@@ -290,7 +311,7 @@ It should only modify the values of Spacemacs settings."
    ;; when invoking Emacs 27.1 executable on the command line, for instance:
    ;;   ./emacs --dump-file=~/.emacs.d/.cache/dumps/spacemacs.pdmp
    ;; (default spacemacs.pdmp)
-   dotspacemacs-emacs-dumper-dump-file "spacemacs.pdmp"
+   dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
 
    ;; If non-nil ELPA repositories are contacted via HTTPS whenever it's
    ;; possible. Set it to nil if you have no way to use HTTPS in your
@@ -373,6 +394,14 @@ It should only modify the values of Spacemacs settings."
 
    ;; Default major mode of the scratch buffer (default `text-mode')
    dotspacemacs-scratch-mode 'text-mode
+
+   ;; If non-nil, *scratch* buffer will be persistent. Things you write down in
+   ;; *scratch* buffer will be saved and restored automatically.
+   dotspacemacs-scratch-buffer-persistent nil
+
+   ;; If non-nil, `kill-buffer' on *scratch* buffer
+   ;; will bury it instead of killing.
+   dotspacemacs-scratch-buffer-unkillable nil
 
    ;; Initial message in the scratch buffer, such as "Welcome to Spacemacs!"
    ;; (default nil)
@@ -557,7 +586,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'evil
+   dotspacemacs-folding-method 'vimish
 
    ;; If non-nil `smartparens-strict-mode' will be enabled in programming modes.
    ;; (default nil)
@@ -632,7 +661,7 @@ It should only modify the values of Spacemacs settings."
    dotspacemacs-pretty-docs nil))
 
 (defun dotspacemacs/user-init ()
-  "Initialization for user code:
+  "Initialization for user code:))
 This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
@@ -669,6 +698,7 @@ before packages are loaded."
   (setq org-journal-dir "~/org/journal/")
   (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
+  (setq python-shell-interpreter 'ipython)
   (setq create-lockfiles nil)
   (setq lsp-auto-guess-root nil)
   (rbenv-use-corresponding)
@@ -726,8 +756,6 @@ before packages are loaded."
       (modify-syntax-entry ?_ "w" table)
       (with-syntax-table table
         ad-do-it)))
-  (setq python-shell-interpreter "python")
-  (setq python-shell-interpreter-args "-i ")
   (setq python-tab-width 2)
   (setq vc-follow-symlinks t)
   (setq tab-width 2)
@@ -769,7 +797,7 @@ before packages are loaded."
         ad-do-it)))
   (setq browse-url-browser-function 'browse-url-generic
         engine/browser-function 'browse-url-generic
-        browse-url-generic-program "chromium-browser")
+        browse-url-generic-program "chromium")
   (setq
    ;; Use another eclimd executable
    eclim-executable "~/eclipse/eclim"
@@ -818,6 +846,9 @@ before packages are loaded."
     (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
     (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil)))
+  (setq-default evil-escape-delay 0.2)
+  (setq-default evil-escape-key-sequence "jk")
+  (global-set-key (kbd "C-c C-g") 'evil-escape)
   (setq-default
    ;; js2-mode
    js2-basic-offset 2
@@ -830,7 +861,7 @@ before packages are loaded."
 
   (with-eval-after-load 'evil-surround
     (setq-default evil-surround-pairs-alist
-                (push #'(?~ . ("``" . "``")) evil-surround-pairs-alist)))
+                  (push #'(?~ . ("``" . "``")) evil-surround-pairs-alist)))
   (setq flycheck-idle-change-delay 60))
 
 
