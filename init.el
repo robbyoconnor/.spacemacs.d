@@ -169,7 +169,14 @@ This function should only modify configuration layer settings."
              python-sort-imports-on-save t
              python-pipenv-activate t
              python-test-runner '(nose pytest))
-     lsp
+     (lsp :variables
+          lsp-lens-enable t
+          lsp-headerline-breadcrumb-enable t
+          lsp-remap-xref-keybindings t
+          lsp-ui-doc-enable t
+          lsp-ui-sideline-enable t
+          lsp-ui-sideline-show-symbol t
+          lsp-ui-sideline-ignore-duplicate t)
      racket
      (ruby :variables
            ruby-backend 'lsp
