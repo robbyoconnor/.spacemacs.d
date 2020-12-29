@@ -237,7 +237,7 @@ This function should only modify configuration layer settings."
      yaml
      sql
      nim
-     ipython-notebook
+     (ipython-notebook :variable in-backend 'jupyter)
      lua
      scheme
      purescript
