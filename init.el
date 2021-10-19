@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '((dart :variables
+   '(clojure
+     (dart :variables
            dart-backend 'lsp
            lsp-dart-sdk-dir " ~/flutter/bin/cache/dart-sdk/"
            lsp-enable-on-type-formatting t)
@@ -84,6 +85,7 @@ This function should only modify configuration layer settings."
      graphviz
      (ivy :variables
           ivy-enable-advanced-buffer-information t)
+     ;; (compleseus :variables compleseus-engine 'vertico)
      asciidoc
      elfeed
      speed-reading
@@ -107,8 +109,8 @@ This function should only modify configuration layer settings."
      (markdown :variables markdown-live-preview-engine 'vmd)
      syntax-checking
      (latex :variables
-	          latex-backend 'lsp
-	          latex-enable-auto-fill t)
+            latex-backend 'lsp
+            latex-enable-auto-fill t)
      (colors :variables
              colors-colorize-identifiers 'all
              colors-enable-nyan-cat-progress-bar t)
@@ -134,6 +136,7 @@ This function should only modify configuration layer settings."
      major-modes
      (go :variables
          go-backend 'lsp
+         go-use-golangci-lint t
          gofmt-command "goimports"
          go-format-before-save t
          go-use-gometalinter t
@@ -158,7 +161,7 @@ This function should only modify configuration layer settings."
 
      (python :variables
              python-backend 'lsp
-             python-lsp-server 'pyright
+             python-lsp-server 'pylsp
              python-formatter 'yapf
              python-format-on-save nil
              python-shell-interpreter "ipython"
@@ -203,7 +206,7 @@ This function should only modify configuration layer settings."
      pandoc
      vagrant
      (ibuffer :variables ibuffer-group-buffers-by 'projects)
-     semantic
+     ;; semantic
      deft
      (shell :variables
             close-window-with-teminal t
@@ -237,8 +240,7 @@ This function should only modify configuration layer settings."
      yaml
      sql
      nim
-     (ipython-notebook :variable in-backend 'jupyter)
-     lua
+     (ipython-notebook :variables ein-backend 'jupyter)
      scheme
      purescript
      sml
@@ -270,13 +272,25 @@ This function should only modify configuration layer settings."
      slack
      systemd
      command-log
-     (terraform :variables terraform-auto-format-on-save t)
+     (terraform :variables
+                terraform-auto-format-on-save t)
      pass
      parinfer
      groovy
      kotlin
      unicode-fonts
      graphql
+     streamlink
+     (twitch :variables
+             twitch-api-username "robbyoconnor"
+             twitch-api-oauth-token "j914znalhjha32admfcfevvsl7ql7r")
+     hackernews
+     lobsters
+     djvu
+     eww
+     (reddit :variables
+             reddigg-subs '(spacemacs
+                            trymacs_discord))
      (multiple-cursors :variables multiple-cursors-backend 'evil-mc)
      (treemacs))
 
@@ -305,12 +319,12 @@ It should only modify the values of Spacemacs settings."
    ;; to compile Emacs 27 from source following the instructions in file
    ;; EXPERIMENTAL.org at to root of the git repository.
    ;; (default nil)
-   dotspacemacs-enable-emacs-pdumper t
+   dotspacemacs-enable-emacs-pdumper nil
 
    ;; Name of executable file pointing to emacs 27+. This executable must be
    ;; in your PATH.
    ;; (default "emacs")
-   dotspacemacs-emacs-pdumper-executable-file "emacs-snapshot"
+   dotspacemacs-emacs-pdumper-executable-file "~/code/emacs/src/emacs"
 
    ;; Name of the Spacemacs dump file. This is the file will be created by the
    ;; portable dumper in the cache directory under dumps sub-directory.
@@ -380,7 +394,7 @@ It should only modify the values of Spacemacs settings."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'doge-inverted
+   dotspacemacs-startup-banner '997
 
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
@@ -628,6 +642,7 @@ It should only modify the values of Spacemacs settings."
    ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
    ;; (default '("rg" "ag" "pt" "ack" "grep"))
    dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+
    ;; Format specification for setting the frame title.
    ;; %a - the `abbreviated-file-name', or `buffer-name'
    ;; %t - `projectile-project-name'
@@ -651,6 +666,9 @@ It should only modify the values of Spacemacs settings."
    ;; (default nil - same as frame-title-format)
    dotspacemacs-icon-title-format nil
 
+   ;; Show trailing whitespace (default t)
+   dotspacemacs-show-trailing-whitespace t
+
    ;; Delete whitespace while saving buffer. Possible values are `all'
    ;; to aggressively delete empty line and long sequences of whitespace,
    ;; `trailing' to delete only the whitespace at end of lines, `changed' to
@@ -662,10 +680,12 @@ It should only modify the values of Spacemacs settings."
    ;; number of seconds. (default nil)
    dotspacemacs-zone-out-when-idle nil
 
-   ;; Run `spacemacs/prettify-org-buffer' when
+   org-roam-v2-ack t
+
+  ;; Run `spacemacs/prettify-org-buffer' when
    ;; visiting README.org files of Spacemacs.
    ;; (default nil)
-   dotspacemacs-pretty-docs nil))
+   dotspacemacs-pretty-docs t))
 
 (defun dotspacemacs/user-init ()
   "Initialization for user code:))
@@ -693,6 +713,16 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Magit - forge configuration
+  ;;
+  ;; Set the files that are searched for writing tokens
+  ;; by default ~/.authinfo will be used
+  ;; and write a token in unencrypted format
+  (setq auth-sources '("~/.authinfo.gpg"))
+  ;;
+  ;; End of Magit - forge configuration
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (require 'window-purpose) ; workaround until https://github.com/bmag/emacs-purpose/issues/158 is fixed
   (require 'semantic/db-file)
   (setq spaceline-org-clock-p t)
@@ -837,6 +867,7 @@ before packages are loaded."
   (defalias 'display-buffer-in-major-side-window 'window--make-major-side-window)
   (setq which-key-side-window-location 'bottom)
   (setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
+  (setq ein:output-area-case-types '(:image/svg+xml :image/png :image/jpeg :text/html :text/plain :application/latex :application/tex :application/javascript))
   ;; (setq flycheck-gometalinter-deadline "45s")
   ;; (setq flycheck-gometalinter-fast t)
   ;; (setq flycheck-gometalinter-test t)
