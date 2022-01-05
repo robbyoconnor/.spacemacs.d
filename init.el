@@ -32,7 +32,8 @@ This function should only modify configuration layer settings."
 
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(clojure
+   '(lua
+     clojure
      (dart :variables
            dart-backend 'lsp
            lsp-dart-sdk-dir " ~/flutter/bin/cache/dart-sdk/"
@@ -223,19 +224,36 @@ This function should only modify configuration layer settings."
      prodigy
      evernote
      (org :variables
+          org-superstar-bullet-list '("■" "◆" "▲" "▶")
           org-want-todo-bindings t
+          org-todo-dependencies-strategy 'naive-auto
+          org-enable-bootstrap-support t
           org-enable-github-support t
           org-enable-reveal-js-support t
-          org-enable-org-journal-support t
-          org-enable-hugo-support t
           org-projectile-file "TODOs.org"
-          org-want-todo-bindings t
-          org-enable-sticky-headerr t
+          org-enable-notifications t
+          org-start-notification-daemon-on-startup t
+          org-enable-org-contacts-support t
+          org-enable-org-journal-support t
+          org-journal-dir "~/org/journal/"
+          org-journal-file-format "%Y-%m-%d"
+          org-journal-date-prefix "#+TITLE: "
+          org-journal-date-format "%A, %B %d %Y"
+          org-journal-time-prefix "* "
+          org-journal-time-format ""
+          org-enable-sticky-header t
           org-enable-hugo-support t
+          org-enable-trello-support t
           org-enable-epub-support t
           org-enable-verb-support t
           org-enable-roam-support t
-          org-enable-bootstrap-support t)
+          org-enable-appear-support t
+          org-enable-roam-protocol t)
+
+
+
+
+
      search-engine
      yaml
      sql
@@ -288,6 +306,11 @@ This function should only modify configuration layer settings."
      lobsters
      djvu
      eww
+     (tree-sitter :variables
+                  tree-sitter-syntax-highlight-enable t
+                  tree-sitter-indent-enable nil
+                  tree-sitter-fold-enable t
+                  tree-sitter-fold-indicators-enable t)
      (reddit :variables
              reddigg-subs '(spacemacs
                             trymacs_discord))
@@ -299,9 +322,9 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages then consider to create a layer, you can also put the
    ;; configuration in `dotspacemacs/config'.
-   dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm yasnippet-snippets)
+   dotspacemacs-additional-packages '(helm-flycheck marcopolo ob-ipython nvm yasnippet-snippets git-modes)
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(ebuild-mode flycheck-mix)
+   dotspacemacs-excluded-packages '(ebuild-mode flycheck-mix gitignore-mode gitconfig-mode gitattributes-mode)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'
@@ -726,13 +749,13 @@ before packages are loaded."
   (require 'window-purpose) ; workaround until https://github.com/bmag/emacs-purpose/issues/158 is fixed
   (require 'semantic/db-file)
   (setq spaceline-org-clock-p t)
+  (setq spaceline-org-clock-p t)
   (with-eval-after-load 'org-agenda
     (require 'org-projectile)
     (mapcar '(lambda (file)
                (when (file-exists-p file)
                  (push file org-agenda-files)))
             (org-projectile-todo-files)))
-  (setq org-journal-dir "~/org/journal/")
   (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
   (setq auto-save-file-name-transforms `((".*" ,temporary-file-directory t)))
   (setq python-shell-interpreter 'ipython)
@@ -901,6 +924,10 @@ before packages are loaded."
     (setq-default evil-surround-pairs-alist
                   (push #'(?~ . ("``" . "``")) evil-surround-pairs-alist)))
   (setq flycheck-idle-change-delay 60))
+
+
+
+
 
 
 
