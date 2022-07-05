@@ -736,6 +736,19 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+  (when window-system
+    (if (> (display-pixel-height) 1050)
+        (setq-default dotspacemacs-default-font '("Source Code Pro"
+                                                  :size 28
+                                                  :weight normal
+                                                  :width normal
+                                                  :powerline-scale 1.1))
+      (setq-default dotspacemacs-default-font '("Source Code Pro"
+                                                :size 13
+                                                :weight normal
+                                                :width normal
+                                                :powerline-scale 1.1))))
+
   (set-fontset-font t 'unicode "Symbola" nil 'prepend)
   '(add-hook 'doc-view-mode-hook 'auto-revert-mode))
 
