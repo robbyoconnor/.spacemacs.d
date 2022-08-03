@@ -104,7 +104,6 @@ This function should only modify configuration layer settings."
      emacs-lisp
      (git :variables
           git-magit-status-fullscreen t)
-     github
      gnus
      version-control
      (markdown :variables markdown-live-preview-engine 'vmd)
